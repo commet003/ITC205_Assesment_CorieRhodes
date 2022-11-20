@@ -1,4 +1,5 @@
 package test;
+
 import airlock.entities.IPressureSensor;
 import airlock.entities.PressureSensor;
 import airlock.exceptions.PressureException;
@@ -15,13 +16,11 @@ public class PressureSensorTest {
     double initPressure2;
     double newPressure = 5.4;
     double negativePressure = -1.2;
-    PressureException pressureException;
 
     @org.junit.Before
     public void setUp() throws Exception {
         pressureSensor = new PressureSensor(initPressure);
         //pressureSensor2 = new PressureSensor(Double.NaN);
-
     }
 
     @org.junit.After

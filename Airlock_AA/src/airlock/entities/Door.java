@@ -13,39 +13,79 @@ public class Door implements IDoor{
 	
 	public Door(IPressureSensor exSensor, IPressureSensor inSensor, 
 	            DoorState initialState) throws DoorException {
-		//TODO - implement method
+		// Check exSensor and inSensor are not null
+		if (exSensor == null || inSensor == null) {
+			throw new DoorException("Pressure sensors cannot be null");
+		}else{
+			this.exSensor = exSensor;
+			this.inSensor = inSensor;
+		}
+
+		// Check initialState is not null
+		if (initialState == null) {
+			throw new DoorException("Initial state cannot be null");
+		}else {
+			this.state = initialState;
+		}
+
+		// if initialState is OPEN, check that the pressure sensors are equal
+		if (initialState == DoorState.OPEN) {
+			if (Math.abs(exSensor.getPressure() - inSensor.getPressure()) > TOLERANCE) {
+				throw new DoorException("Pressure sensors must be equal when door is open, but were " + exSensor.getPressure() + " and " + inSensor.getPressure());
+			}
+		}
+
 	}
 	
 	@Override
 	public void open() throws DoorException {
-		//TODO - implement method
+		// Check that the door is not already open
+		if (state == DoorState.OPEN) {
+			throw new DoorException("Door is already open");
+		} else if (state == DoorState.CLOSED) {
+			// Check that the pressure sensors are equal
+			if (Math.abs(exSensor.getPressure() - inSensor.getPressure()) > TOLERANCE) {
+				throw new DoorException("Pressure sensors must be equal when door is open, but were " + exSensor.getPressure() + " and " + inSensor.getPressure());
+			}else{
+				state = DoorState.OPEN;
+			}
+		}
 	}
 	
 	@Override
 	public void close() throws DoorException {
-		//TODO - implement method
+		// Check that the door is not already closed
+		if (state == DoorState.CLOSED) {
+			throw new DoorException("Door is already closed");
+		} else if (state == DoorState.OPEN) {
+			// Check that the pressure sensors are not equal
+			if (Math.abs(exSensor.getPressure() - inSensor.getPressure()) < TOLERANCE) {
+				throw new DoorException("Pressure sensors must not be equal when door is closed, but were " + exSensor.getPressure() + " and " + inSensor.getPressure());
+			}else{
+				state = DoorState.CLOSED;
+			}
+		}
 	}
 
 	@Override
 	public double getExternalPressure() {
-		//TODO - implement method
-		return 0.0;
+
+		return exSensor.getPressure();
 	}
 
 	@Override
 	public double getInternalPressure() {
-		//TODO - implement method
-		return 0.0;
+		return inSensor.getPressure();
 	}
 
 	@Override
 	public boolean isOpen() {
-		return state == DoorState.OPEN;
+		return state.equals(DoorState.OPEN);
 	}
 
 	@Override
 	public boolean isClosed() {
-		return state == DoorState.CLOSED;
+		return state.equals(DoorState.CLOSED);
 	}
 
 	public String toString() {
