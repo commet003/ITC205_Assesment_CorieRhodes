@@ -3,6 +3,7 @@ package test;
 import airlock.entities.IPressureSensor;
 import airlock.entities.PressureSensor;
 import airlock.exceptions.PressureException;
+import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,30 +18,30 @@ public class PressureSensorTest {
     double newPressure = 5.4;
     double negativePressure = -1.2;
 
-    @org.junit.Before
+    @Before
     public void setUp() throws Exception {
         pressureSensor = new PressureSensor(initPressure);
         //pressureSensor2 = new PressureSensor(Double.NaN);
     }
 
-    @org.junit.After
+    @After
     public void tearDown() throws Exception {
         pressureSensor = null;
 
     }
 
-    @org.junit.Test
+    @Test
     public void getPressure() throws PressureException {
         assertEquals(initPressure, pressureSensor.getPressure(), 0.001);
     }
 
-    @org.junit.Test
+    @Test
     public void setPressure() throws PressureException {
         pressureSensor.setPressure(newPressure);
         assertEquals(newPressure, pressureSensor.getPressure(), 0.001);
     }
 
-    @org.junit.Test(expected = PressureException.class)
+    @Test(expected = PressureException.class)
     public void setNegativePressure() throws PressureException {
         pressureSensor.setPressure(negativePressure);
     }

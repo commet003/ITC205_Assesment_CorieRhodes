@@ -1,7 +1,13 @@
-import airlock.entities.*;
-import airlock.exceptions.AirLockException;
-
 import java.util.Scanner;
+
+import airlock.entities.AirLock;
+import airlock.entities.Door;
+import airlock.entities.DoorState;
+import airlock.entities.IAirLock;
+import airlock.entities.IDoor;
+import airlock.entities.IPressureSensor;
+import airlock.entities.PressureSensor;
+import airlock.exceptions.AirLockException;
 
 public class Main {
 

@@ -14,8 +14,14 @@ Date Created: 18/11/2022
 
 # Milestone 1 - Due Date: 21/11/2022
 ### Requirements:
-- [x] Create repo for project
-- [x] Add project files to repo
-- [x] Grant Jim access to repo
-- [x] Implement PressureSensor class
-- [x] Implement test for PressureSonsor class
+- [<span style="color:green">x</span>] Create repo for project
+- [<span style="color:green">x</span>]  Add project files to repo
+- [<span style="color:green">x</span>]  Grant Jim access to repo
+- [<span style="color:green">x</span>]  Implement PressureSensor class
+- [<span style="color:green">x</span>]  Implement test for PressureSonsor class
+
+
+<span style="color:red">
+ Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.
+</span>
+
