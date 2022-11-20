@@ -4,13 +4,13 @@ import airlock.exceptions.DoorException;
 
 public interface IDoor {
 	
-	public void open()  throws DoorException;
-	public void close() throws DoorException;
+	void open()  throws DoorException;
+	void close() throws DoorException;
 	
-	public double getExternalPressure();
-	public double getInternalPressure();
+	double getExternalPressure();
+	double getInternalPressure();
 	
-	public boolean isOpen();
-	public boolean isClosed();
+	boolean isOpen();
+	boolean isClosed();
 	
 }

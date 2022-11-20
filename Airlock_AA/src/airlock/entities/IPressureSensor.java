@@ -4,7 +4,7 @@ import airlock.exceptions.PressureException;
 
 public interface IPressureSensor {
 	
-	public double getPressure();
-	public void setPressure(double newPressure) throws PressureException;
+	double getPressure();
+	void setPressure(double newPressure) throws PressureException;
 
 }

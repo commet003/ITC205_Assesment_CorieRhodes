@@ -15,7 +15,7 @@ public class PressureSensor implements IPressureSensor {
 		}
 
 	}
-	
+
 	public double getPressure() {
 		//returns current pressure value
 		return pressure;

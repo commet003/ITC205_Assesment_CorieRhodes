@@ -27,11 +27,13 @@ hs_err_pid*
 #vscode files
 .vscode
 
+# Intellij files
+.idea
+
 #mac files
 .DS_Store
 
 #project files
-.idea
 .project
 .classpath
 .settings

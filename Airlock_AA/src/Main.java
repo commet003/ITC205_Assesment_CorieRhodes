@@ -1,13 +1,7 @@
-import java.util.Scanner;
-
-import airlock.entities.AirLock;
-import airlock.entities.Door;
-import airlock.entities.DoorState;
-import airlock.entities.IAirLock;
-import airlock.entities.IDoor;
-import airlock.entities.IPressureSensor;
-import airlock.entities.PressureSensor;
+import airlock.entities.*;
 import airlock.exceptions.AirLockException;
+
+import java.util.Scanner;
 
 public class Main {
 
@@ -63,10 +57,10 @@ public class Main {
 				String ans = null;
 				
 				try {
-					System.out.print(String.format(menuFormatString, 
+					System.out.printf(menuFormatString,
 						airLock,
 						exteriorSensor, lockSensor, interiorSensor,
-						exteriorDoor, interiorDoor));
+						exteriorDoor, interiorDoor);
 					
 					ans = scanner.nextLine();
 					

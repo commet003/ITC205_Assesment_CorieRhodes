@@ -1,6 +1,6 @@
 package airlock.entities;
 
 public enum AirLockState {
-	 UNSEALED, SEALED;
+	 UNSEALED, SEALED
 
 }

@@ -1,5 +1,5 @@
 package airlock.entities;
 
 public enum OperationMode {
-	MANUAL, AUTO;
+	MANUAL, AUTO
 }
