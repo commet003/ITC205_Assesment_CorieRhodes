@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 
 
-public class PressureSensorTest {
+public class TestPressureSensor{
 
     IPressureSensor pressureSensor;
     IPressureSensor pressureSensor2;

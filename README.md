@@ -21,7 +21,7 @@ Date Created: 18/11/2022
 - [<span style="color:green">x</span>]  Implement test for PressureSonsor class
 
 
-<span style="color:red">
- Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.
-</span>
+
+ ~~Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.~~ Update 21/11/2022: Fixed, all test now working in all IDEs.
+
 
