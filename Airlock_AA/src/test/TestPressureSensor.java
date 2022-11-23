@@ -5,46 +5,87 @@ import airlock.entities.PressureSensor;
 import airlock.exceptions.PressureException;
 import org.junit.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
-
-public class TestPressureSensor{
+public class TestPressureSensor {
 
     IPressureSensor pressureSensor;
-    IPressureSensor pressureSensor2;
-    double initPressure = 2.1;
+    double initPressure;
     double initPressure2;
-    double newPressure = 5.4;
-    double negativePressure = -1.2;
+    double newPressure;
+    double negativePressure;
 
-    @Before
-    public void setUp() throws Exception {
-        pressureSensor = new PressureSensor(initPressure);
-        //pressureSensor2 = new PressureSensor(Double.NaN);
-    }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         pressureSensor = null;
+        newPressure = 0.0;
+        initPressure = 0.0;
+        initPressure2 = 0.0;
+        negativePressure = 0.0;
 
     }
 
+    // ensure that the constructor throws an ‘InvalidPressureException’
+    // if an attempt is made to initialise the sensor with a negative pressure (< 0.0)
     @Test
-    public void getPressure() throws PressureException {
-        assertEquals(initPressure, pressureSensor.getPressure(), 0.001);
+    public void testConstructorNegativePressure() {
+        negativePressure = -1.0;
+        assertThrows(PressureException.class, () -> pressureSensor = new PressureSensor(negativePressure));
     }
 
+
+    // ensure that the constructor returns a valid fully initialised PressureSensor object.
+    // (i.e. no other methods should fail unexpectedly or give unspecified results if the constructor is successful)
+
     @Test
-    public void setPressure() throws PressureException {
+    public void testConstructor() throws PressureException {
+        initPressure = 5.0;
+        pressureSensor = new PressureSensor(initPressure);
+        assertNotNull(pressureSensor);
+    }
+
+    // ensure that getPressure returns the initial pressure set in the constructor
+    @Test
+    public void testGetPressure() throws PressureException {
+        initPressure = 5.0;
+        pressureSensor = new PressureSensor(initPressure);
+        assertEquals(initPressure, pressureSensor.getPressure(), 0.01);
+    }
+
+    // ensure that getPressure returns any updated pressure set by setPressure
+    @Test
+    public void testSetPressure() throws PressureException {
+        initPressure = 5.0;
+        newPressure = 10.0;
+        pressureSensor = new PressureSensor(initPressure);
         pressureSensor.setPressure(newPressure);
-        assertEquals(newPressure, pressureSensor.getPressure(), 0.001);
+        assertEquals(newPressure, pressureSensor.getPressure(), 0.01);
     }
 
-    @Test(expected = PressureException.class)
-    public void setNegativePressure() throws PressureException {
-        pressureSensor.setPressure(negativePressure);
+    //ensure that setPressure throws an ‘InvalidPressureException’
+    // if an attempt is made to set a negative pressure (< 0.0)
+    @Test
+    public void testSetPressureNegativePressure() throws PressureException {
+        initPressure = 5.0;
+        negativePressure = -1.0;
+        newPressure = negativePressure;
+        pressureSensor = new PressureSensor(initPressure);
+        assertThrows(PressureException.class, () -> pressureSensor.setPressure(newPressure));
     }
+
+    // ensure that setPressure updates the initial pressure set by the constructor
+    @Test
+    public void testSetPressureUpdatesInitialPressure() throws PressureException {
+        initPressure = 5.0;
+        newPressure = 10.0;
+        pressureSensor = new PressureSensor(initPressure);
+        pressureSensor.setPressure(newPressure);
+        assertEquals(newPressure, pressureSensor.getPressure(), 0.01);
+    }
+
+
 
 
 }
