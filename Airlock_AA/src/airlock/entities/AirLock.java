@@ -113,7 +113,11 @@ public class AirLock implements IAirLock{
 		if(this.state != AirLockState.SEALED) {
 			throw new AirLockException("Airlock is not sealed");
 		}else{
-			equaliseWithCabinPressure();
+			try {
+				this.lockSensor.setPressure(this.innerDoor.getInternalPressure());
+			} catch (PressureException e) {
+				throw new AirLockException("PressureException thrown: " + e);
+			}
 		}
 	}
 
@@ -123,7 +127,11 @@ public class AirLock implements IAirLock{
 		if(this.state != AirLockState.SEALED) {
 			throw new AirLockException("Airlock is not sealed");
 		}else{
-			equaliseWithEnvironmentPressure();
+			try {
+				this.lockSensor.setPressure(this.outerDoor.getExternalPressure());
+			} catch (PressureException e) {
+				throw new AirLockException("PressureException thrown: " + e);
+			}
 		}
 	}
 
