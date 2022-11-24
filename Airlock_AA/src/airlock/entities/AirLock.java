@@ -51,7 +51,7 @@ public class AirLock implements IAirLock{
 				this.outerDoor.open();
 				// set airlock state to UNSEALED
 				this.state = AirLockState.UNSEALED;
-			} catch (DoorException | PressureException e){
+			} catch (DoorException e){
 				throw new AirLockException("Inner door is already closed " + e.getMessage());
 			}
 		}
@@ -89,7 +89,7 @@ public class AirLock implements IAirLock{
 				}
 				this.innerDoor.open();
 				this.state = AirLockState.UNSEALED;
-			}catch (DoorException | PressureException e){
+			}catch (DoorException e){
 				throw new AirLockException("Inner door is already closed " + e.getMessage());
 			}
 		}
