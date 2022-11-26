@@ -3,7 +3,7 @@ package test;
 import airlock.entities.*;
 import airlock.exceptions.DoorException;
 import airlock.exceptions.PressureException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -187,7 +187,7 @@ class DoorTest {
     }
 
     // Cleans up after each test has been run
-    @After
+    @AfterEach
     public void tearDown(){
 
         internalPressureSensor = null;

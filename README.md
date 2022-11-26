@@ -1,7 +1,7 @@
-# AA_Assesment_CorieRhodes
+# AA\_Assesment\_CorieRhodes
 
-Name: Corie Rhodes \
-Student ID: 11774079 \
+Name: Corie Rhodes \\
+Student ID: 11774079 \\
 Date Created: 18/11/2022 
 
 
@@ -18,8 +18,8 @@ Date Created: 18/11/2022
 * [<span style="color:green; font-weight: bold;">x</span>] \{To get head start for next milestone\} Implement PressureSensor class
 
 * [<span style="color:green; font-weight: bold;">x</span>] \{To get head start for next milestone\} Implement test for PressureSonsor class
-  
-  <span style="color:red">~~Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.~~</span>
+	  
+  <span style="color:red">\~\~Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.\~\~</span>
   
   <span style="color:green">Update 21/11/2022: Fixed, all test now working in all IDEs.</span>
 
@@ -30,7 +30,7 @@ Date Created: 18/11/2022
 [<span style="color:green; font-weight: bold;">x</span>] Implement PressureSensor class
 
 [<span style="color:green; font-weight: bold;">x</span>] Implement test for PressureSonsor class
-[<span style="color:green; font-weight: bold;">x</span>] Implement Door class\
+[<span style="color:green; font-weight: bold;">x</span>] Implement Door class\\
 
 [<span style="color:green; font-weight: bold;">x</span>] Implement test for Door class
 

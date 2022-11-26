@@ -166,7 +166,6 @@ public class AirLock implements IAirLock{
 	public boolean isInManualMode() {
 		return mode == OperationMode.MANUAL;
 	}
-
 	@Override
 	public boolean isInAutoMode() {
 		return mode == OperationMode.AUTO;
@@ -186,6 +185,7 @@ public class AirLock implements IAirLock{
 		return String.format(
 			"Airlock: state: %s, mode: %s", 
 			state, mode);
+			
 	}
 	
 
