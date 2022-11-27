@@ -1,7 +1,7 @@
 # AA\_Assesment\_CorieRhodes
 
-Name: Corie Rhodes \\
-Student ID: 11774079 \\
+Name: Corie Rhodes \
+Student ID: 11774079 \
 Date Created: 18/11/2022 
 
 
