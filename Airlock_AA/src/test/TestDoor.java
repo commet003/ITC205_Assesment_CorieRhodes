@@ -189,13 +189,9 @@ class DoorTest {
     // Cleans up after each test has been run
     @AfterEach
     public void tearDown(){
-
         internalPressureSensor = null;
         externalPressureSensor = null;
         state = null;
         mode = null;
-
-
-        System.out.println("Test completed");
     }
 }

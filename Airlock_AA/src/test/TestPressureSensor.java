@@ -24,7 +24,6 @@ public class TestPressureSensor {
         initPressure = 0.0;
         initPressure2 = 0.0;
         negativePressure = 0.0;
-
     }
 
     // ensure that the constructor throws an ‘InvalidPressureException’

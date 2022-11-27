@@ -52,7 +52,7 @@ public class AirLock implements IAirLock{
 				// set airlock state to UNSEALED
 				this.state = AirLockState.UNSEALED;
 			} catch (DoorException e){
-				throw new AirLockException("Inner door is already closed " + e.getMessage());
+				throw new AirLockException("Inner door is already opened " + e.getMessage());
 			}
 		}
 	}

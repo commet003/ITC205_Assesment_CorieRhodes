@@ -10,9 +10,7 @@ public class PressureSensor implements IPressureSensor {
 		//Checks if initialPressure is negative, else sets pressure to initialPressure
 		if (initialPressure < 0) {
 			throw new PressureException("Pressure cannot be negative");
-		} else if (Double.isNaN(initialPressure)) {
-			throw new PressureException("Pressure cannot be NaN");
-		} else{
+		}else{
 			pressure = initialPressure;
 		}
 
@@ -27,9 +25,7 @@ public class PressureSensor implements IPressureSensor {
 		//Checks if newPressure is negative, else sets pressure to newPressure
 		if (newPressure < 0) {
 			throw new PressureException("The new value for Pressure cannot be negative");
-		} else if (Double.isNaN(newPressure)) {
-			throw new PressureException("Pressure cannot be NaN");
-		} else{
+		}else{
 			pressure = newPressure;
 		}
 	}
