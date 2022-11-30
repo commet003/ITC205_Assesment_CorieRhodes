@@ -42,7 +42,7 @@ public class Door implements IDoor{
 		// Check that the door is not already open
 		if (state == DoorState.OPEN) {
 			throw new DoorException("Door is already open");
-		} else if (state == DoorState.CLOSED) {
+		} else{
 			// Check that the pressure sensors are equal
 			if (Math.abs(exSensor.getPressure() - inSensor.getPressure()) > TOLERANCE) {
 				throw new DoorException("Pressure sensors must be equal when door is open, but were " + exSensor.getPressure() + " and " + inSensor.getPressure());
@@ -57,7 +57,7 @@ public class Door implements IDoor{
 		// Check that the door is not already closed
 		if (state == DoorState.CLOSED) {
 			throw new DoorException("Door is already closed");
-		} else if (state == DoorState.OPEN) {
+		} else{
 			state = DoorState.CLOSED;
 		}
 	}
