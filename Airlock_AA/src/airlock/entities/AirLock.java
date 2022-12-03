@@ -43,7 +43,7 @@ public class AirLock implements IAirLock {
 			try {
 				if (mode == OperationMode.AUTO) {
 					if (innerDoor.isOpen()) {
-						innerDoor.close();
+						closeInnerDoor();
 					}
 					equaliseWithEnvironmentPressure();
 				}
@@ -63,23 +63,22 @@ public class AirLock implements IAirLock {
 		// open
 		if (innerDoor.isOpen()) {
 			throw new AirLockException("Inner door is already open");
-		} else {
-			try {
-				// if operation mode is AUTO
-				if (mode == OperationMode.AUTO) {
-					// if outer door is open
-					if (outerDoor.isOpen()) {
-						// close outer door
-						outerDoor.close();
-					}
-					// equalise pressure
-					equaliseWithCabinPressure();
+		}
+		try {
+			// if operation mode is AUTO
+			if (mode == OperationMode.AUTO) {
+				// if outer door is open
+				if (outerDoor.isOpen()) {
+					// close outer door
+					closeOuterDoor();
 				}
-				innerDoor.open();
-				state = AirLockState.UNSEALED;
-			} catch (DoorException e) {
-				throw new AirLockException("Error while opening inner door. " + e.getMessage());
+				// equalise pressure
+				equaliseWithCabinPressure();
 			}
+			innerDoor.open();
+			state = AirLockState.UNSEALED;
+		} catch (DoorException e) {
+			throw new AirLockException("Error while opening inner door. " + e.getMessage());
 		}
 	}
 
@@ -90,7 +89,6 @@ public class AirLock implements IAirLock {
 			if (innerDoor.isClosed()) {
 				state = AirLockState.SEALED;
 			}
-
 		} catch (DoorException e) {
 			throw new AirLockException("Outer door is already closed " + e.getMessage());
 		}
@@ -99,9 +97,9 @@ public class AirLock implements IAirLock {
 	@Override
 	public void closeInnerDoor() throws AirLockException {
 		try {
-			this.innerDoor.close();
-			if (this.outerDoor.isClosed()) {
-				this.state = AirLockState.SEALED;
+			innerDoor.close();
+			if (outerDoor.isClosed()) {
+				state = AirLockState.SEALED;
 			}
 		} catch (DoorException e) {
 			throw new AirLockException("DoorException thrown: " + e);
@@ -114,13 +112,12 @@ public class AirLock implements IAirLock {
 		// is not sealed
 		if (state != AirLockState.SEALED) {
 			throw new AirLockException("Airlock is not sealed");
-		} else {
-			// equalise lockSensor pressure with environment pressure
-			try {
-				lockSensor.setPressure(outerDoor.getExternalPressure());
-			} catch (PressureException e) {
-				throw new AirLockException(e.getMessage());
-			}
+		}
+		// equalise lockSensor pressure with environment pressure
+		try {
+			lockSensor.setPressure(outerDoor.getExternalPressure());
+		} catch (PressureException e) {
+			throw new AirLockException(e.getMessage());
 		}
 	}
 
@@ -135,7 +132,7 @@ public class AirLock implements IAirLock {
 			try {
 				lockSensor.setPressure(innerDoor.getInternalPressure());
 			} catch (PressureException e) {
-				e.getMessage();
+				throw new AirLockException(e.getMessage());
 			}
 		}
 	}

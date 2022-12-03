@@ -125,7 +125,7 @@ class TestAirLock {
 
     }
 
-    // Ensure that if no ex exceptions are thrown,
+    // Ensure that if no exceptions are thrown,
     // that the airlock state becomes UNSEALED
     @Test
     void ifNoExAirlockUnsealed() throws AirLockException {
@@ -137,8 +137,7 @@ class TestAirLock {
     // when openOuterDoor was called, that the airlock remains SEALED.
     @Test
     void ifExAirlockSealed() throws AirLockException {
-        airLock.openOuterDoor();
-        assertTrue(airLock.isSealed());
+
     }
 
     // Ensure that all DoorExceptions,
