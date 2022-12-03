@@ -11,7 +11,7 @@ import airlock.entities.OperationMode;
 
 import static org.junit.Assert.*;
 
-class DoorTest {
+public class TestDoor {
     // Doors
     IDoor door;
 

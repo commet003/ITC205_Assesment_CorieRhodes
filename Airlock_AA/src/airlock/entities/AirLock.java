@@ -38,22 +38,21 @@ public class AirLock implements IAirLock {
 		// is open
 		if (outerDoor.isOpen()) {
 			throw new AirLockException("Outer door is already open");
-		} else {
-			// try, if operation mode is AUTO then close inner door
-			try {
-				if (mode == OperationMode.AUTO) {
-					if (innerDoor.isOpen()) {
-						closeInnerDoor();
-					}
-					equaliseWithEnvironmentPressure();
+		}
+		// try, if operation mode is AUTO then close inner door
+		try {
+			if (mode == OperationMode.AUTO) {
+				if (innerDoor.isOpen()) {
+					closeInnerDoor();
 				}
-				// open outer door
-				outerDoor.open();
-				// set airlock state to UNSEALED
-				state = AirLockState.UNSEALED;
-			} catch (DoorException e) {
-				throw new AirLockException("Error while opening outer door. " + e.getMessage());
+				equaliseWithEnvironmentPressure();
 			}
+			// open outer door
+			outerDoor.open();
+			// set airlock state to UNSEALED
+			state = AirLockState.UNSEALED;
+		} catch (DoorException e) {
+			throw new AirLockException("Error while opening outer door. " + e.getMessage());
 		}
 	}
 
@@ -125,15 +124,15 @@ public class AirLock implements IAirLock {
 	public void equaliseWithCabinPressure() throws AirLockException {
 		// if airlock state is not SEALED then throw AirLockException reporting airlock
 		// is not sealed
+		final double cabinPressure = innerDoor.getExternalPressure();
 		if (state != AirLockState.SEALED) {
 			throw new AirLockException("Airlock is not sealed");
-		} else {
-			// equalise lockSensor pressure with cabin pressure
-			try {
-				lockSensor.setPressure(innerDoor.getInternalPressure());
-			} catch (PressureException e) {
-				throw new AirLockException(e.getMessage());
-			}
+		}
+		// equalise lockSensor pressure with cabin pressure
+		try {
+			lockSensor.setPressure(cabinPressure);
+		} catch (PressureException e) {
+			throw new AirLockException(e.getMessage());
 		}
 	}
 
