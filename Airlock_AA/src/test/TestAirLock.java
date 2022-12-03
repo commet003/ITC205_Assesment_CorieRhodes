@@ -114,8 +114,15 @@ class TestAirLock {
     // then an attempt is made to open the outer door
     @Test
     void ifModeManualAttemptOpenOuterDoor() throws AirLockException {
-        airLock.openOuterDoor();
-        assertTrue(airLock.isOuterDoorClosed());
+        if(airLock.isInManualMode()){
+            airLock.openOuterDoor();
+            assertFalse(airLock.isOuterDoorClosed());
+        }else{
+            airLock.toggleOperationMode();
+            airLock.openOuterDoor();
+            assertFalse(airLock.isOuterDoorClosed());
+        }
+
     }
 
     // Ensure that if no ex exceptions are thrown,
@@ -199,8 +206,9 @@ class TestAirLock {
     // Ensure that if operation mode is MANUAL then an attempt is made to open the inner door
     @Test
     void ifModeManualAttemptOpenInnerDoor() throws AirLockException {
+
         airLock.openInnerDoor();
-        assertTrue(airLock.isInnerDoorClosed());
+        assertFalse(airLock.isInnerDoorClosed());
     }
 
     // Ensure that if no ex exceptions are thrown that the airlock state becomes UNSEALED
@@ -213,9 +221,14 @@ class TestAirLock {
     // Ensure that if any exceptions are thrown and the airlock was SEALED when,
     // openInnerDoor was called, that the airlock remains SEALED.
     @Test
-    void ifExAirlockSealedInnerDoor() throws AirLockException {
-        airLock.openInnerDoor();
-        assertTrue(airLock.isSealed());
+    void ifExAirlockSealedInnerDoor(){
+        try{
+            airLock.openInnerDoor();
+            assertFalse(airLock.isSealed());
+        }catch (AirLockException e){
+            assertTrue(airLock.isSealed());
+        }
+
     }
 
     // Ensure that all DoorExceptions are caught,
