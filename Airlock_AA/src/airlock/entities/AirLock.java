@@ -124,13 +124,12 @@ public class AirLock implements IAirLock {
 	public void equaliseWithCabinPressure() throws AirLockException {
 		// if airlock state is not SEALED then throw AirLockException reporting airlock
 		// is not sealed
-		final double cabinPressure = innerDoor.getExternalPressure();
 		if (state != AirLockState.SEALED) {
 			throw new AirLockException("Airlock is not sealed");
 		}
 		// equalise lockSensor pressure with cabin pressure
 		try {
-			lockSensor.setPressure(cabinPressure);
+			lockSensor.setPressure(innerDoor.getExternalPressure());
 		} catch (PressureException e) {
 			throw new AirLockException(e.getMessage());
 		}
