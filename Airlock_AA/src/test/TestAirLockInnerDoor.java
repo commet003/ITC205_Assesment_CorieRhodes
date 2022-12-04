@@ -25,7 +25,7 @@ public class TestAirLockInnerDoor {
     @BeforeEach
     public void setUp() throws PressureException, DoorException {
         outerDoorExSensor = new PressureSensor(1.0);
-        innerDoorExSensor = new PressureSensor(1.0);
+        innerDoorExSensor = new PressureSensor(2.0);
         lockSensor = new PressureSensor(1.0);
         outerDoorState = DoorState.CLOSED;
         innerDoorState = DoorState.CLOSED;
@@ -34,105 +34,98 @@ public class TestAirLockInnerDoor {
         airLock = new AirLock(outerDoor, innerDoor, lockSensor);
     }
 
-
-     /* Ensure that all DoorExceptions,
-      * are caught and then rethrown encapsulated in AirLockExceptions
-      */
-    
-
-    //TEST innerDoorOpen with lockSensor Pressure > or < cabin pressure
+    // Test 1: test that exception is thrown if inner door is already open
     @Test
-    void testInnerDoorOpen() throws AirLockException {
-        try{
+    public void testOpenInnerDoorAlreadyOpen() {
+        try {
+            airLock.openInnerDoor();
+        } catch (AirLockException e) {
+            assertThrows(AirLockException.class, () -> airLock.openInnerDoor());
+        }
+    }
+
+    // Test 2: ensure if mode is auto & outer door is open, outer door is closed
+    // before opening inner door opened
+    @Test
+    void testInnerDoorOpenAutoMode() throws AirLockException {
+        if (airLock.isInManualMode()) {
             airLock.toggleOperationMode();
-            lockSensor.setPressure(2.5);
-        }catch(PressureException e){
-            throw new AirLockException(e.getMessage());
+            airLock.openOuterDoor();
+        }
+
+        airLock.openInnerDoor();
+        assertTrue(!airLock.isInnerDoorClosed() && airLock.isOuterDoorClosed());
+    }
+
+    // Test 3: test that pressure is equalized when inner door is closed
+    @Test
+    void testPressureEqualized() throws AirLockException {
+        if (airLock.isInManualMode()) {
+            airLock.toggleOperationMode();
         }
         airLock.openInnerDoor();
-        assertFalse(airLock.isInnerDoorClosed());
+        assertEquals(lockSensor.getPressure(), innerDoorExSensor.getPressure());
     }
 
+    // Test 4: test that innerDoor is opened after pressure equalization
     @Test
-    void testInnerDoorOpenLessThan() throws AirLockException {
-        try{
+    void testInnerDoorOpened() throws AirLockException {
+        if (airLock.isInManualMode()) {
             airLock.toggleOperationMode();
-            lockSensor.setPressure(0.5);
-        }catch(PressureException e){
-            throw new AirLockException(e.getMessage());
         }
         airLock.openInnerDoor();
-        assertFalse(airLock.isInnerDoorClosed());
+        // Returns true if inner door is open and pressure is equalized with cabin
+        assertTrue(!airLock.isInnerDoorClosed() && lockSensor.getPressure() == innerDoorExSensor.getPressure());
     }
 
-    // Ensure that openInnerDoor throws an AirLockException if openInnerDoor,
-    // is called while the inner door is already open.
+    // Test 5: test that if mode is manual, attempt made to open inner door
     @Test
-    void testOpenInnerDoorAlreadyOpen() throws AirLockException {
-        airLock.openInnerDoor();
-        assertThrows(AirLockException.class, () -> airLock.openInnerDoor());
+    void testInnerDoorOpenManualMode() {
+        if (airLock.isInManualMode()) {
+            assertThrows(AirLockException.class, () -> airLock.openInnerDoor());
+        }
     }
 
-    
-
-    // Ensure that if operation mode is AUTO,
-    // and after the outer door is closed and pressure has been equalised,
-    // with the internal cabin that an attempt is made to open the inner door
+    // Test 6: test if no exceptions thrown door is opened and airlock is unsealed
     @Test
-    void ifModeAutoAttemptOpenInnerDoor() throws AirLockException {
-        if (airLock.isInAutoMode()) {
-            if (airLock.isOuterDoorClosed()) {
+    void testUnsealedIfNoExceptions() {
+        if (lockSensor.getPressure() != innerDoorExSensor.getPressure()) {
+            try {
+                airLock.equaliseWithCabinPressure();
+            } catch (AirLockException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            airLock.openInnerDoor();
+        } catch (AirLockException e) {
+            System.out.println(e.getMessage());
+        }
+        assertTrue(airLock.isUnsealed());
+    }
+
+    // Test 7: test if exception is thrown, and airlock was already sealed, that it
+    // remains sealed
+    @Test
+    void testAirlockRemainSealed() {
+        if (airLock.isSealed()) {
+            try {
                 airLock.openInnerDoor();
-                assertFalse(airLock.isInnerDoorClosed());
+            } catch (AirLockException e) {
+                assertTrue(airLock.isSealed());
             }
         }
     }
 
-    // Ensure that if operation mode is MANUAL then an attempt is made to open the inner door
+    // Test 8: test that door exceptions are encapsulated and thrown as
+    // AirLockExceptions
     @Test
-    void ifModeManualAttemptOpenInnerDoor() throws AirLockException {
-
-        airLock.openInnerDoor();
-        assertFalse(airLock.isInnerDoorClosed());
-    }
-
-    // Ensure that if no ex exceptions are thrown that the airlock state becomes UNSEALED
-    @Test
-    void ifNoExAirlockUnsealedInnerDoor() throws AirLockException {
-        airLock.openInnerDoor();
-        assertTrue(airLock.isUnsealed());
-    }
-
-    // Ensure that if any exceptions are thrown and the airlock was SEALED when,
-    // openInnerDoor was called, that the airlock remains SEALED.
-    @Test
-    void ifExAirlockSealedInnerDoor(){
-        try{
-            airLock.openInnerDoor();
-            assertFalse(airLock.isSealed());
-        }catch (AirLockException e){
-            assertTrue(airLock.isSealed());
+    void testDoorExceptionsEncapsulated() {
+        try {
+            airLock.openOuterDoor();
+        } catch (AirLockException e) {
+            assertThrows(AirLockException.class, () -> airLock.openOuterDoor());
         }
-
-    }
-
-    /*  Ensure that all DoorExceptions are caught,
-     *  and then rethrown encapsulated in AirLockExceptions
-     */
-    @Test
-    void ifDoorExAirlockExInnerDoor() throws AirLockException {
-        airLock.openInnerDoor();
-        assertThrows(AirLockException.class, () -> airLock.openInnerDoor());
-    }
-
-    // Ensure that if operation mode is AUTO and after the inner door is closed
-    // then an attempt is made to equalise pressures with the external environment
-    @Test
-    void ifModeAutoAttemptEqualiseExternal() throws AirLockException {
-        airLock.toggleOperationMode();
-        airLock.openInnerDoor();
-        airLock.openOuterDoor();
-        assertTrue(airLock.isInnerDoorClosed());
     }
 
     @AfterEach
