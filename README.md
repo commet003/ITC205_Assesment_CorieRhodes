@@ -19,7 +19,7 @@ Date Created: 18/11/2022
 
 * [<span style="color:green; font-weight: bold;">x</span>] \{To get head start for next milestone\} Implement test for PressureSonsor class
 	  
-  <span style="color:red">\~\~Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.\~\~</span>
+  <span style="color:red">~~Note: When attempting to run test in VS-Code or Eclipse, get a timeout error. Test work fine in Intellij though.~~</span>
   
   <span style="color:green">Update 21/11/2022: Fixed, all test now working in all IDEs.</span>
 
@@ -42,9 +42,9 @@ Date Created: 18/11/2022
 
 [<span style="color:green; font-weight: bold;">x</span>] Implement AirLock class
 
-[ ] Implement test for AirLock class
+[<span style="color:green; font-weight: bold;">x</span>] Implement test for AirLock class
 
-[ ] Commit all changes to VCS and push to origin
+[<span style="color:green; font-weight: bold;">x</span>] Commit all changes to VCS and push to origin
 
 # Milestone 4 - Due Date: 12/12/2022
 
