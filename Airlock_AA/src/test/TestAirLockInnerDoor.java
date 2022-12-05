@@ -54,7 +54,9 @@ public class TestAirLockInnerDoor {
         }
 
         airLock.openInnerDoor();
-        assertTrue(!airLock.isInnerDoorClosed() && airLock.isOuterDoorClosed());
+        assertFalse(airLock.isInnerDoorClosed());
+        assertTrue(airLock.isOuterDoorClosed());
+
     }
 
     // Test 3: test that pressure is equalized when inner door is closed
@@ -75,7 +77,8 @@ public class TestAirLockInnerDoor {
         }
         airLock.openInnerDoor();
         // Returns true if inner door is open and pressure is equalized with cabin
-        assertTrue(!airLock.isInnerDoorClosed() && lockSensor.getPressure() == innerDoorExSensor.getPressure());
+        assertTrue(!airLock.isInnerDoorClosed());
+        assertEquals(lockSensor.getPressure(), innerDoorExSensor.getPressure());
     }
 
     // Test 5: test that if mode is manual, attempt made to open inner door
