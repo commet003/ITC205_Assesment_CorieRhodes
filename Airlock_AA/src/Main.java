@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			double exteriorPressure = 0.5;
+			double exteriorPressure = 2.5;
 			double lockPressure = 1.0;
 			double interiorPressure = 1.0;
 			
