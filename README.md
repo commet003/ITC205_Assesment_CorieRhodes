@@ -50,11 +50,11 @@ Date Created: 18/11/2022
 
 ### Requirements:
 
-[ ] Construct FAT test
-[ ] Implement FAT test
+[<span style="color:green; font-weight: bold;">x</span>] Construct FAT test
+[<span style="color:green; font-weight: bold;">x</span>] Implement FAT test
 
-[ ] Commit all changes to VCS and push to origin
+[<span style="color:green; font-weight: bold;">x</span>] Commit all changes to VCS and push to origin
 
-[ ] Complete reflective task
+[<span style="color:green; font-weight: bold;">x</span>] Complete reflective task
 
-[ ] Submit required 'paper' to SAT inbox
+[<span style="color:green; font-weight: bold;">x</span>] Submit required 'paper' to SAT inbox
