@@ -20,15 +20,15 @@ public class AirLock implements IAirLock {
 		this.lockSensor = lockSensor;
 
 		// Sets the initial operation state to MANUAL
-		this.mode = OperationMode.MANUAL;
+		mode = OperationMode.MANUAL;
 
 		// If both doors are CLOSED then, sets initial airlock state to SEALED
 		if (innerDoor.isClosed() && outerDoor.isClosed()) {
-			this.state = AirLockState.SEALED;
+			state = AirLockState.SEALED;
 		}
 		// Otherwise, sets initial airlock state to UNSEALED
 		else {
-			this.state = AirLockState.UNSEALED;
+			state = AirLockState.UNSEALED;
 		}
 	}
 
